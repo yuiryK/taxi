@@ -1,7 +1,7 @@
-// app.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'providers/providers.dart';
+import 'presentation/ui_kit/buttons/app_button.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -31,7 +31,6 @@ class HomeScreen extends ConsumerWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-
             // Пользователь
             userAsync.when(
               data: (user) => Text("👤 User: ${user['name']}"),
@@ -41,17 +40,16 @@ class HomeScreen extends ConsumerWidget {
 
             const SizedBox(height: 20),
 
-            // Кнопка загрузки пользователя (для обновления)
-            ElevatedButton(
-              onPressed: () {ref.refresh(currentUserProvider);
-                              ScaffoldMessenger.of(context).showSnackBar(
+            // Load User Button
+            AppButton(
+              label: "Load User",
+              onPressed: () {
+                ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
                     content: Text("Кнопка сработала!"),
                   ),
-                              );
+                );
               },
-              
-              child: const Text("Load User"),
             ),
 
             const SizedBox(height: 40),
@@ -77,9 +75,10 @@ class HomeScreen extends ConsumerWidget {
 
             const SizedBox(height: 20),
 
-            ElevatedButton(
+            // Load Rides Button
+            AppButton(
+              label: "Load Rides",
               onPressed: () => ref.refresh(availableRidesProvider),
-              child: const Text("Load Rides"),
             ),
           ],
         ),
