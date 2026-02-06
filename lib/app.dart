@@ -43,7 +43,14 @@ class HomeScreen extends ConsumerWidget {
 
             // Кнопка загрузки пользователя (для обновления)
             ElevatedButton(
-              onPressed: () => ref.refresh(currentUserProvider),
+              onPressed: () {ref.refresh(currentUserProvider);
+                              ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text("Кнопка сработала!"),
+                  ),
+                              );
+              },
+              
               child: const Text("Load User"),
             ),
 
@@ -58,7 +65,7 @@ class HomeScreen extends ConsumerWidget {
                     final ride = rides[index];
                     return ListTile(
                       leading: const Icon(Icons.local_taxi),
-                      title: Text(ride['from']! + " → " + ride['to']!),
+                      title: Text("${ride['from']!} → ${ride['to']!}"),
                       subtitle: Text("Driver: ${ride['driver']}"),
                     );
                   },
